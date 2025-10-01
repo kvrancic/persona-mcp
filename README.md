@@ -1,4 +1,5 @@
 # Persona MCP Server (Alpha)
+[![smithery badge](https://smithery.ai/badge/@kvrancic/persona-mcp)](https://smithery.ai/server/@kvrancic/persona-mcp)
 
 > **⚠️ Alpha Version**: This is an early release. Advanced features like vector embeddings (ChromaDB) are planned for future updates.
 
@@ -47,6 +48,14 @@ This server allows you to:
 - **Anthropic API key** (get from https://console.anthropic.com/)
 
 ## Installation
+
+### Installing via Smithery
+
+To install persona-mcp automatically via [Smithery](https://smithery.ai/server/@kvrancic/persona-mcp):
+
+```bash
+npx -y @smithery/cli install @kvrancic/persona-mcp
+```
 
 All dependencies are configured in `pyproject.toml`:
 - `anthropic` - For Claude LLM (model: claude-sonnet-4-5-20250929)
