@@ -56,15 +56,22 @@ class SerperSearch:
                         data = response.json()
                         organic_results = data.get("organic", [])
 
+                        print(f"[Serper] Query '{query}' returned {len(organic_results)} organic results")
+
+                        if len(organic_results) == 0:
+                            print(f"[Serper] Full response for '{query}': {data}")
+
                         for result in organic_results:
                             all_results.append({
                                 "url": result.get("link", ""),
                                 "title": result.get("title", ""),
                                 "snippet": result.get("snippet", "")
                             })
+                    else:
+                        print(f"[Serper] Query '{query}' failed with status {response.status_code}: {response.text}")
 
                 except Exception as e:
-                    print(f"Search error for query '{query}': {e}")
+                    print(f"[Serper] Exception for query '{query}': {type(e).__name__}: {e}")
                     continue
 
         # Deduplicate by URL and limit to max_results
@@ -80,4 +87,7 @@ class SerperSearch:
             if len(unique_results) >= max_results:
                 break
 
-        return unique_results[:max_results]
+        final_results = unique_results[:max_results]
+        print(f"[Serper] Returning {len(final_results)} unique results for '{person_name}'")
+
+        return final_results

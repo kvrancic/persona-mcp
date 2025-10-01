@@ -68,12 +68,15 @@ The persona will respond in FIRST PERSON based on their actual public statements
             await ctx.info(f"🔍 Searching for content about {person_name}...")
             search_results = await search.search_person(person_name, max_results=max_urls * 2)
 
-            if not search_results:
-                return f"❌ No content found for {person_name}. Try a different name."
+            await ctx.debug(f"📊 Search returned {len(search_results)} total results")
 
-            # Extract URLs
+            if not search_results:
+                return f"❌ No content found for {person_name}. Serper API returned 0 results. Try:\n1. A more well-known person\n2. Check if Serper API key has credits\n3. Try again in a few moments"
+
+            # Extract URLs and log them
             urls = [result["url"] for result in search_results[:max_urls]]
             await ctx.info(f"📄 Found {len(urls)} URLs to scrape")
+            await ctx.debug(f"URLs: {', '.join(urls[:3])}...")
 
             # Step 2: Scrape content
             await ctx.info(f"🕷️ Scraping content from {len(urls)} URLs...")
